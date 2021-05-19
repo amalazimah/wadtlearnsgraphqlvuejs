@@ -26,10 +26,13 @@
     "vue-apollo": "^3.0.7"
   },
   "devDependencies": {
+    "autoprefixer": "^10.2.5",
     "poi": "^9.0.0",
     "poi-preset-bundle-report": "^2.0.0",
     "poi-preset-offline": "^9.0.0",
+    "postcss": "^8.2.15",
     "serve": "^6.1.0",
+    "tailwindcss": "^2.1.2",
     "tyu": "^1.0.4"
   }
 }
