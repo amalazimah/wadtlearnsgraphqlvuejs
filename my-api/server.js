@@ -3,7 +3,11 @@ const { ApolloServer, gql } = require('apollo-server');
 const schema = gql(`
   type Query {
     currentUser: User
+    secondUser: User
+    thirdUser: User
     postsByUser(userId: String!): [Post]
+    postsBySecondUser(userId: String!): [Post]
+    postsByThirdUser(userId: String!): [Post]
   }
 
   type Mutation {
@@ -34,27 +38,33 @@ data.posts = [
   {
     id: 'xyz-2',
     content: "Second Post - Hello again",
-    userId: 'abc-1',
+    userId: 'abc-2',
   },
   {
     id: 'xyz-3',
-    content: "Random Post",
-    userId: 'abc-2',
+    content: "Third Post - Hello again",
+    userId: 'abc-3',
   }
 ];
 
 data.users = [
   {
     id: 'abc-1', 
-    username: "andy25",
+    username: "ak ridhauddin pg jamaluddin",
   },
   {
     id: 'abc-2', 
-    username: "randomUser",
+    username: "ampuan zuhairah ampuan hj zainal",
+  },
+  {
+    id: 'abc-3', 
+    username: "hilmi sabli",
   }
 ];
 
 const currentUserId = 'abc-1';
+const secondUserId = 'abc-2';
+const thirdUserId = 'abc-3';
 
 var resolvers = {
   Mutation: {
@@ -73,9 +83,25 @@ var resolvers = {
       let user = context.data.users.find( u => u.id === context.currentUserId );
       return user;
     },
+    secondUser: (parent, args, context) => {
+      let user = context.data.users.find( u => u.id === context.secondUserId );
+      return user;
+    },
+    thirdUser: (parent, args, context) => {
+      let user = context.data.users.find( u => u.id === context.thirdUserId );
+      return user;
+    },
     postsByUser: (parent, args, context) => {
       let posts = context.data.posts.filter( p => p.userId === args.userId ); 
       return posts
+    },
+    postsBySecondUser: (parent, args, context) => {
+      let secondposts = context.data.posts.filter( p => p.userId === args.userId ); 
+      return secondposts
+    },
+    postsByThirdUser: (parent, args, context) => {
+      let thirdposts = context.data.posts.filter( p => p.userId === args.userId ); 
+      return thirdposts
     },
   },
   User: {
@@ -91,6 +117,8 @@ const server = new ApolloServer({
   resolvers: resolvers,
   context: { 
     currentUserId,
+    secondUserId,
+    thirdUserId,
     data
   }
 });
